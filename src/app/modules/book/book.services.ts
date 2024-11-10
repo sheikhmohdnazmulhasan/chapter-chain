@@ -2,7 +2,11 @@ import { Book } from "@prisma/client";
 
 async function createBookIntoDb(payload: Partial<Book>) {
 
-    console.log(payload);
+    try {
+        const result = await 
+    } catch (error) {
+
+    }
 };
 
 export const BookServices = {
