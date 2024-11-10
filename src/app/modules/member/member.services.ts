@@ -70,13 +70,13 @@ async function readSpecificMemberByIdFromDb(memberId: string) {
     }
 };
 
-async function updateBookFromDb(bookId: string, payload: Partial<Book>) {
+async function updateMemberFromDb(memberId: string, payload: Partial<Member>) {
 
     try {
 
-        const result = await prisma.book.update({
+        const result = await prisma.member.update({
             where: {
-                bookId
+                memberId
             },
             data: payload
         });
@@ -84,7 +84,7 @@ async function updateBookFromDb(bookId: string, payload: Partial<Book>) {
         return {
             success: true,
             status: 200,
-            message: 'Book updated successfully',
+            message: 'Member updated successfully',
             data: result
         }
 
@@ -92,7 +92,7 @@ async function updateBookFromDb(bookId: string, payload: Partial<Book>) {
         return {
             success: false,
             status: error.meta.cause ? 404 : 400,
-            message: error.meta.cause || 'Failed to update book',
+            message: error.meta.cause || 'Failed to update member',
         }
     }
 };
@@ -127,4 +127,5 @@ export const MemberServices = {
     createMemberIntoDb,
     readAllMemberFromDb,
     readSpecificMemberByIdFromDb,
+    updateMemberFromDb
 };

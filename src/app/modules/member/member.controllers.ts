@@ -36,7 +36,26 @@ async function readSpecificMemberById(req: Request, res: Response) {
 
     try {
         const result = await MemberServices.readSpecificMemberByIdFromDb(req.params.memberId as string)
-        res.status(result.status).json(result)
+        res.status(result.status).json(result);
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            status: 500,
+            message: "Internal server error"
+        });
+    }
+};
+
+async function updateMember(req: Request, res: Response) {
+
+    try {
+        const result = await MemberServices.updateMemberFromDb(
+            req.params.memberId as string,
+            req.body as Partial<Member>
+        );
+
+        res.status(result.status).json(result);
 
     } catch (error) {
         res.status(500).json({
@@ -50,5 +69,6 @@ async function readSpecificMemberById(req: Request, res: Response) {
 export const MemberControllers = {
     createMember,
     readAllMember,
-    readSpecificMemberById
+    readSpecificMemberById,
+    updateMember
 }
