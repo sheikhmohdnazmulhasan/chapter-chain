@@ -15,7 +15,7 @@ async function createBookIntoDb(payload: Book) {
             data: result
         }
 
-    } catch (error) {
+    } catch (error: any) {
         return {
             success: false,
             status: 400,
