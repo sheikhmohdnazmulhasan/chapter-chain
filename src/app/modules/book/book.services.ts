@@ -91,15 +91,42 @@ async function updateBookFromDb(bookId: string, payload: Partial<Book>) {
     } catch (error: any) {
         return {
             success: false,
-            status: error.name === 'NotFoundError' ? 404 : 400,
-            message: error.name || 'Failed to fetch book'
+            status: error.meta.cause ? 404 : 400,
+            message: error.meta.cause || 'Failed to update book',
         }
     }
 };
+
+async function deleteBookFromDb(bookId: string) {
+
+    try {
+        await prisma.book.delete({
+            where: {
+                bookId
+            }
+        });
+
+        return {
+            success: true,
+            status: 200,
+            message: "Book successfully deleted"
+        }
+
+    } catch (error: any) {
+        return {
+            success: false,
+            status: error.meta.cause ? 404 : 400,
+            message: error.meta.cause || 'Failed to delete book',
+            error
+        }
+    }
+
+}
 
 export const BookServices = {
     createBookIntoDb,
     readAllBookFromDb,
     readSpecificBookByIdFromDb,
-    updateBookFromDb
+    updateBookFromDb,
+    deleteBookFromDb
 };

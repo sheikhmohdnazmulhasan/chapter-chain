@@ -61,10 +61,25 @@ async function updateBook(req: Request, res: Response) {
         });
     }
 };
+async function deleteBook(req: Request, res: Response) {
+
+    try {
+        const result = await BookServices.deleteBookFromDb(req.params.bookId as string);
+        res.status(result.status).json(result);
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            status: 500,
+            message: "Internal server error"
+        });
+    }
+};
 
 export const BookControllers = {
     createBook,
     readAllBook,
     readSpecificBookById,
-    updateBook
+    updateBook,
+    deleteBook
 }
