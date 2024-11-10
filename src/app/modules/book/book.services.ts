@@ -24,6 +24,28 @@ async function createBookIntoDb(payload: Book) {
     }
 };
 
-export const BookServices = {
-    createBookIntoDb
+async function readAllBookFromDb() {
+
+    try {
+        const result = await prisma.book.findMany();
+
+        return {
+            success: true,
+            status: 200,
+            message: 'Books retrieved successfully',
+            data: result
+        }
+
+    } catch (error: any) {
+        return {
+            success: false,
+            status: 400,
+            message: 'Failed to fetch books'
+        }
+    }
 }
+
+export const BookServices = {
+    createBookIntoDb,
+    readAllBookFromDb
+};

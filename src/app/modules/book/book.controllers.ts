@@ -13,10 +13,26 @@ async function createBook(req: Request, res: Response) {
             success: false,
             status: 500,
             message: "Internal server error"
-        })
+        });
+    }
+};
+
+async function readAllBook(_req: Request, res: Response) {
+
+    try {
+        const result = await BookServices.readAllBookFromDb();
+        res.status(result.status).json(result)
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            status: 500,
+            message: "Internal server error"
+        });
     }
 };
 
 export const BookControllers = {
-    createBook
+    createBook,
+    readAllBook
 }
