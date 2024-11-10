@@ -70,8 +70,36 @@ async function readSpecificBookByIdFromDb(bookId: string) {
     }
 };
 
+async function updateBookFromDb(bookId: string, payload: Partial<Book>) {
+
+    try {
+
+        const result = await prisma.book.update({
+            where: {
+                bookId
+            },
+            data: payload
+        });
+
+        return {
+            success: true,
+            status: 200,
+            message: 'Book updated successfully',
+            data: result
+        }
+
+    } catch (error: any) {
+        return {
+            success: false,
+            status: error.name === 'NotFoundError' ? 404 : 400,
+            message: error.name || 'Failed to fetch book'
+        }
+    }
+};
+
 export const BookServices = {
     createBookIntoDb,
     readAllBookFromDb,
-    readSpecificBookByIdFromDb
+    readSpecificBookByIdFromDb,
+    updateBookFromDb
 };

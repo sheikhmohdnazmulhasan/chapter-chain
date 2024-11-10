@@ -47,8 +47,24 @@ async function readSpecificBookById(req: Request, res: Response) {
     }
 };
 
+async function updateBook(req: Request, res: Response) {
+
+    try {
+        const result = await BookServices.updateBookFromDb(req.params.bookId as string, req.body as Partial<Book>);
+        res.status(result.status).json(result);
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            status: 500,
+            message: "Internal server error"
+        });
+    }
+};
+
 export const BookControllers = {
     createBook,
     readAllBook,
-    readSpecificBookById
+    readSpecificBookById,
+    updateBook
 }
