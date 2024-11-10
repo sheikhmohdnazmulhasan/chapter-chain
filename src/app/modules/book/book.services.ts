@@ -43,9 +43,35 @@ async function readAllBookFromDb() {
             message: 'Failed to fetch books'
         }
     }
-}
+};
+
+async function readSpecificBookByIdFromDb(bookId: string) {
+
+    try {
+        const result = await prisma.book.findUniqueOrThrow({
+            where: {
+                bookId
+            }
+        });
+
+        return {
+            success: true,
+            status: 200,
+            message: 'Book retrieved successfully',
+            data: result
+        }
+
+    } catch (error: any) {
+        return {
+            success: false,
+            status: error.name === 'NotFoundError' ? 404 : 400,
+            message: error.name || 'Failed to fetch book'
+        }
+    }
+};
 
 export const BookServices = {
     createBookIntoDb,
-    readAllBookFromDb
+    readAllBookFromDb,
+    readSpecificBookByIdFromDb
 };
