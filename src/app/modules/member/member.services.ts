@@ -45,19 +45,19 @@ async function readAllMemberFromDb() {
     }
 };
 
-async function readSpecificBookByIdFromDb(bookId: string) {
+async function readSpecificMemberByIdFromDb(memberId: string) {
 
     try {
-        const result = await prisma.book.findUniqueOrThrow({
+        const result = await prisma.member.findUniqueOrThrow({
             where: {
-                bookId
+                memberId
             }
         });
 
         return {
             success: true,
             status: 200,
-            message: 'Book retrieved successfully',
+            message: 'Member retrieved successfully',
             data: result
         }
 
@@ -65,7 +65,7 @@ async function readSpecificBookByIdFromDb(bookId: string) {
         return {
             success: false,
             status: error.name === 'NotFoundError' ? 404 : 400,
-            message: error.name || 'Failed to fetch book'
+            message: error.name || 'Failed to fetch member'
         }
     }
 };
@@ -125,5 +125,6 @@ async function deleteBookFromDb(bookId: string) {
 
 export const MemberServices = {
     createMemberIntoDb,
-    readAllMemberFromDb
+    readAllMemberFromDb,
+    readSpecificMemberByIdFromDb,
 };

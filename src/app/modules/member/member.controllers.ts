@@ -32,7 +32,23 @@ async function readAllMember(_req: Request, res: Response) {
     }
 };
 
+async function readSpecificMemberById(req: Request, res: Response) {
+
+    try {
+        const result = await MemberServices.readSpecificMemberByIdFromDb(req.params.memberId as string)
+        res.status(result.status).json(result)
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            status: 500,
+            message: "Internal server error"
+        });
+    }
+};
+
 export const MemberControllers = {
     createMember,
-    readAllMember
+    readAllMember,
+    readSpecificMemberById
 }
