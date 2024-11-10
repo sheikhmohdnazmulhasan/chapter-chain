@@ -19,7 +19,7 @@ async function createMemberIntoDb(payload: Member) {
         return {
             success: false,
             status: 400,
-            message: 'Failed to create new member'
+            message: error.code === 'P2002' ? 'Email Already Exist' : 'Failed to create new member',
         }
     }
 };
@@ -32,7 +32,7 @@ async function readAllMemberFromDb() {
         return {
             success: true,
             status: 200,
-            message: 'Books retrieved successfully',
+            message: 'Members retrieved successfully',
             data: result
         }
 
@@ -40,7 +40,7 @@ async function readAllMemberFromDb() {
         return {
             success: false,
             status: 400,
-            message: 'Failed to fetch books'
+            message: 'Failed to fetch members'
         }
     }
 };
@@ -124,5 +124,6 @@ async function deleteBookFromDb(bookId: string) {
 }
 
 export const MemberServices = {
-    createMemberIntoDb
+    createMemberIntoDb,
+    readAllMemberFromDb
 };

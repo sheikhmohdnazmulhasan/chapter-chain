@@ -17,6 +17,22 @@ async function createMember(req: Request, res: Response) {
     }
 };
 
+async function readAllMember(_req: Request, res: Response) {
+
+    try {
+        const result = await MemberServices.readAllMemberFromDb()
+        res.status(result.status).json(result)
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            status: 500,
+            message: "Internal server error"
+        });
+    }
+};
+
 export const MemberControllers = {
-    createMember
+    createMember,
+    readAllMember
 }
