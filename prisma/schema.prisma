@@ -7,11 +7,43 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// books model
 model Book {
-  bookId          String @id @default(uuid())
+  bookId          String   @id @default(uuid())
   title           String
   genre           String
   publishedYear   Int
   totalCopies     Int
   availableCopies Int
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  borrow          Borrow[]
+
+  @@map("books")
+}
+
+// members model
+model Member {
+  memberId       String   @id @default(uuid())
+  name           String
+  email          String   @unique
+  phone          String
+  membershipDate DateTime
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  Borrow         Borrow[]
+
+  @@map("members")
+}
+
+model Borrow {
+  borrowId   String   @id @default(uuid())
+  borrowDate DateTime @default(now())
+  returnDate String?
+  bookId     String
+  memberId   String
+  book       Book     @relation(fields: [bookId], references: [bookId])
+  member     Member   @relation(fields: [memberId], references: [memberId])
+
+  @@map("borrows")
 }
