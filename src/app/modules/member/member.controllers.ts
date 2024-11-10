@@ -66,9 +66,26 @@ async function updateMember(req: Request, res: Response) {
     }
 };
 
+async function deleteMember(req: Request, res: Response) {
+
+    try {
+        const result = await MemberServices.deleteMemberFromDb(req.params.memberId as string)
+
+        res.status(result.status).json(result);
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            status: 500,
+            message: "Internal server error"
+        });
+    }
+};
+
 export const MemberControllers = {
     createMember,
     readAllMember,
     readSpecificMemberById,
-    updateMember
+    updateMember,
+    deleteMember
 }

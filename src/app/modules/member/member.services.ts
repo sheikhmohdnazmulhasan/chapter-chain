@@ -97,27 +97,26 @@ async function updateMemberFromDb(memberId: string, payload: Partial<Member>) {
     }
 };
 
-async function deleteBookFromDb(bookId: string) {
+async function deleteMemberFromDb(memberId: string) {
 
     try {
-        await prisma.book.delete({
+        await prisma.member.delete({
             where: {
-                bookId
+                memberId
             }
         });
 
         return {
             success: true,
             status: 200,
-            message: "Book successfully deleted"
+            message: "Member successfully deleted"
         }
 
     } catch (error: any) {
         return {
             success: false,
             status: error.meta.cause ? 404 : 400,
-            message: error.meta.cause || 'Failed to delete book',
-            error
+            message: error.meta.cause || 'Failed to delete member',
         }
     }
 
@@ -127,5 +126,6 @@ export const MemberServices = {
     createMemberIntoDb,
     readAllMemberFromDb,
     readSpecificMemberByIdFromDb,
-    updateMemberFromDb
+    updateMemberFromDb,
+    deleteMemberFromDb
 };

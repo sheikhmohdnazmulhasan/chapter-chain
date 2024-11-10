@@ -117,7 +117,6 @@ async function deleteBookFromDb(bookId: string) {
             success: false,
             status: error.meta.cause ? 404 : 400,
             message: error.meta.cause || 'Failed to delete book',
-            error
         }
     }
 
