@@ -16,6 +16,6 @@ async function returnBook(req: Request, res: Response) {
     }
 };
 
-export const BorrowControllers = {
+export const ReturnControllers = {
     returnBook
 }
