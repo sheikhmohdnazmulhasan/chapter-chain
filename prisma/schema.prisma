@@ -37,13 +37,13 @@ model Member {
 }
 
 model Borrow {
-  borrowId   String   @id @default(uuid())
-  borrowDate DateTime @default(now())
-  returnDate String?
+  borrowId   String    @id @default(uuid())
+  borrowDate DateTime  @default(now())
+  returnDate DateTime?
   bookId     String
   memberId   String
-  book       Book     @relation(fields: [bookId], references: [bookId])
-  member     Member   @relation(fields: [memberId], references: [memberId])
+  book       Book      @relation(fields: [bookId], references: [bookId])
+  member     Member    @relation(fields: [memberId], references: [memberId])
 
   @@map("borrows")
 }
