@@ -3,7 +3,7 @@ import { prisma } from "../../constants/prisma_constructor"
 async function returnBookIntoDb(borrowId: string) {
 
     try {
-        const result = await prisma.borrow.update({
+        await prisma.borrow.update({
             where: {
                 borrowId
             },
@@ -11,8 +11,6 @@ async function returnBookIntoDb(borrowId: string) {
                 returnDate: new Date()
             }
         });
-
-        console.log(result);
 
         return {
             success: true,
