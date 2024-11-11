@@ -4,7 +4,7 @@ import { prisma } from "../../constants/prisma_constructor";
 async function createNewBorrowIntoDb(payload: Borrow) {
 
     try {
-        const result = await prisma.borrow.create({
+        const { returnDate, ...resultWithoutReturnDate } = await prisma.borrow.create({
             data: payload
         });
 
@@ -12,7 +12,7 @@ async function createNewBorrowIntoDb(payload: Borrow) {
             success: true,
             status: 200,
             message: 'Book borrowed successfully',
-            data: result
+            data: resultWithoutReturnDate
         }
 
     } catch (error) {
