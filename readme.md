@@ -4,10 +4,6 @@
 
 This project is a backend API for a Library Management System that allows library staff and members to manage books, memberships, and borrowing activities. It provides CRUD operations for books and members, as well as functionality for borrowing and returning books.
 
-## Live URL
-
-[Insert your live backend URL here]
-
 ## Technology Stack & Packages
 
 - Node.js
