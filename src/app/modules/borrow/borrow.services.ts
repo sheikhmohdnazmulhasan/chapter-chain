@@ -28,10 +28,15 @@ async function createNewBorrowIntoDb(payload: Borrow) {
 async function readAllOverdueFromDb() {
     try {
         const today = new Date();
+        const fourteenDaysAgo = new Date(today);
+        fourteenDaysAgo.setDate(today.getDate() - 14)
 
         const result = await prisma.borrow.findMany({
             where: {
-                returnDate: null
+                returnDate: null,
+                borrowDate: {
+                    lt: fourteenDaysAgo
+                }
             },
             include: {
                 book: {
